@@ -28,21 +28,30 @@ export default NextAuth({
         },
         async jwt({ token, user, account }) {
             console.log("jwt")
-            console.log(token)
-            console.log(user)
+            console.log(token);
             if (account && user) {
                 return {
                     ...token,
-                    accessToken: user?.access,
-                    refreshToken: user?.refresh,
+                    access: user?.access,
+                    refresh: user?.refresh,
                 }
             }
+
+            if (Date.now() < token?.exp * 1000) {
+                const userFetcher = await new UserFetcher();
+
+                const newToken = await userFetcher.fetchRefreshToken(token?.refresh);
+                if (!newToken) return null
+                return {
+                    ...token,
+                    ...newToken,
+                }
+            }
+
             return token;
         },
         async session({ session, token }) {
             console.log("session")
-            console.log(session)
-            console.log(token)
             session.access = token.access;
             return session;
         },
