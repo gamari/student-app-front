@@ -9,8 +9,11 @@ import {
   HiUser,
   HiViewBoards,
 } from "react-icons/hi";
+import { signOut, useSession } from "next-auth/react";
 
 export const Sidebar = () => {
+  const { data: session } = useSession();
+
   return (
     <FlowbiteSidebar
       aria-label="Default sidebar example "
@@ -27,7 +30,7 @@ export const Sidebar = () => {
       <FlowbiteSidebar.Items>
         <FlowbiteSidebar.ItemGroup>
           <FlowbiteSidebar.Item href="#" icon={HiChartPie}>
-            <p>Dashboard</p>
+            <p>ダッシュボード</p>
           </FlowbiteSidebar.Item>
           <FlowbiteSidebar.Item
             href="#"
@@ -37,11 +40,12 @@ export const Sidebar = () => {
           >
             <p>Kanban</p>
           </FlowbiteSidebar.Item>
+
           <FlowbiteSidebar.Item href="#" icon={HiInbox} label="3">
-            <p>Inbox</p>
+            <p>予約</p>
           </FlowbiteSidebar.Item>
           <FlowbiteSidebar.Item href="#" icon={HiUser}>
-            <p>Users</p>
+            <p>講座一覧</p>
           </FlowbiteSidebar.Item>
           <FlowbiteSidebar.Item href="#" icon={HiShoppingBag}>
             <p>Products</p>
@@ -49,9 +53,19 @@ export const Sidebar = () => {
           <FlowbiteSidebar.Item href="#" icon={HiArrowSmRight}>
             <p>Sign In</p>
           </FlowbiteSidebar.Item>
-          <FlowbiteSidebar.Item href="#" icon={HiTable}>
-            <p>Sign Up</p>
-          </FlowbiteSidebar.Item>
+          {session ? (
+            <FlowbiteSidebar.Item
+              href="#"
+              icon={HiTable}
+              onClick={() => signOut()}
+            >
+              <p>ログアウト</p>
+            </FlowbiteSidebar.Item>
+          ) : (
+            <FlowbiteSidebar.Item href="/" icon={HiTable}>
+              <p>ログイン</p>
+            </FlowbiteSidebar.Item>
+          )}
         </FlowbiteSidebar.ItemGroup>
       </FlowbiteSidebar.Items>
     </FlowbiteSidebar>
