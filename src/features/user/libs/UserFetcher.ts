@@ -1,6 +1,18 @@
 // TODO axiosにする
 
+import axios from "axios";
+
 export class UserFetcher {
+    async fetchMe(access: string) {
+        const { data } = await axios.get("http://localhost:8000/auth/users/me/", {
+            headers: {
+                Authorization: `Bearer ${access}`,
+            },
+        });
+        console.log(data);
+        return data
+    }
+
     async fetchToken(email: string, password: string) {
         const res = await fetch("http://localhost:8000/auth/jwt/create/", {
             method: "POST",

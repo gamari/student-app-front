@@ -28,10 +28,15 @@ export default NextAuth({
         },
         async jwt({ token, user, account }) {
             console.log("jwt")
-            console.log(token);
             if (account && user) {
+                const userFethcer = new UserFetcher();
+                const me = await userFethcer.fetchMe(user?.access);
+                console.log("AAAAAAAAAA")
+                console.log(me);
                 return {
                     ...token,
+                    user: me,
+                    test: "ab",
                     access: user?.access,
                     refresh: user?.refresh,
                 }
@@ -52,7 +57,11 @@ export default NextAuth({
         },
         async session({ session, token }) {
             console.log("session")
-            session.access = token.access;
+            if (token) {
+                session.access = token.access;
+                session.refresh = token.refresh;
+                session.user = token.user;
+            }
             return session;
         },
     },
