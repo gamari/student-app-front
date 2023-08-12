@@ -53,7 +53,7 @@ export const Sidebar = () => {
             <p>メッセージ</p>
           </FlowbiteSidebar.Item>
 
-          <FlowbiteSidebar.Item href="#" icon={HiInbox} label="3">
+          <FlowbiteSidebar.Item href="/schedule" icon={HiInbox} label="3">
             <p>予約</p>
           </FlowbiteSidebar.Item>
 
