@@ -3,3 +3,9 @@ export interface Course {
     start_time?: Date;
     end_time?: Date;
 }
+
+export interface Event {
+    title: string;
+    start: string;
+    end: string;
+}

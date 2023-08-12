@@ -1,11 +1,14 @@
+import { Event } from "react-big-calendar";
+
 import { useEffect, useState } from 'react';
-import { Schedule } from '../types';
 import axios from 'axios';
 import { useSession } from 'next-auth/react';
+import { Course } from '../types';
+import dayjs from 'dayjs';
 
 const useCalendarEvents = () => {
     const { data: session } = useSession();
-    const [events, setEvents] = useState<Schedule[]>([]);
+    const [events, setEvents] = useState<Event[]>([]);
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
@@ -16,15 +19,16 @@ const useCalendarEvents = () => {
                     Authorization: `Bearer ${session?.access}`,
                 },
             });
-            const data: Schedule[] = [];
+            const data: Event[] = [];
 
-            (response.data as Schedule[]).forEach(item => {
+            (response.data as Course[]).forEach(item => {
                 data.push({
                     title: item.title,
-                    start: item.start,
-                    end: item.end
+                    start: dayjs(item.start_time).toDate(),
+                    end: dayjs(item.start_time).toDate()
                 })
             })
+            console.log(data);
             setEvents(data);
             setLoading(false);
         };

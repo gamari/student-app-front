@@ -1,47 +1,34 @@
 import dayjs from "dayjs";
 import React, { useState } from "react";
-import { Calendar, ToolbarProps, dayjsLocalizer } from "react-big-calendar";
+import { Calendar, Event, dayjsLocalizer } from "react-big-calendar";
 import "react-big-calendar/lib/css/react-big-calendar.css";
 import "dayjs/locale/ja";
-import { Schedule } from "../types";
-import useCalendarEvents from "../hooks/useCalendarEvents";
+import useCalendarEvents from "../hooks/useCalendarCourses";
 import { AddEventModal } from "./AddEventModal";
+import { Course } from "../types";
+import { CustomToolbar } from "./CustomToolbar";
+
+// TODO eventとcourseの変換処理面倒くさい
 
 dayjs.locale("ja");
 
 const localizer = dayjsLocalizer(dayjs);
 
-function CustomToolbar(toolbar: ToolbarProps) {
-  const next = () => {
-    toolbar.date.setMonth(toolbar.date.getMonth() + 1);
-    toolbar.onNavigate("NEXT");
-  };
-  const prev = () => {
-    toolbar.date.setMonth(toolbar.date.getMonth() - 1);
-    toolbar.onNavigate("NEXT");
-  };
-
-  return (
-    <div className="flex flex-row space-x-2">
-      <div className="flex flex-row space-x-3">
-        <button onClick={prev}>前へ</button>
-        <button onClick={next}>次へ</button>
-      </div>
-
-      <div>{toolbar.label}</div>
-    </div>
-  );
-}
-
 export const ScheduleForStudent = () => {
   const { events, loading } = useCalendarEvents();
 
-  const [selectedEvent, setSelectedEvent] = useState<Schedule>();
+  const [selectedCourse, setSelectedCourse] = useState<Course>();
   const [isAddEventModalOpen, setIsAddEventModalOpen] = useState(false);
   // TODO modalの実装
 
-  const handleEventSelect = (event: Schedule) => {
-    setSelectedEvent(event);
+  const handleEventSelect = (event: Event) => {
+    const { title, start, end } = event;
+    const course: Course = {
+      title: title as string,
+      start_time: start,
+      end_time: end,
+    };
+    setSelectedCourse(course);
     // TODO modalのオープン
   };
 
@@ -58,7 +45,7 @@ export const ScheduleForStudent = () => {
   }
 
   return (
-    <div style={{ height: 600, width: "100%" }}>
+    <div style={{ height: 600 }}>
       <Calendar
         localizer={localizer}
         events={events}
@@ -67,7 +54,9 @@ export const ScheduleForStudent = () => {
         style={{ height: 500, width: "700px" }}
         views={["month"]}
         defaultView="month"
-        onSelectEvent={handleEventSelect}
+        onSelectEvent={(event) => {
+          handleEventSelect(event);
+        }}
         formats={{
           monthHeaderFormat: (date: Date) => dayjs(date).format("YYYY年MM月"),
           dateFormat: (date: Date) => dayjs(date).format("D"),
