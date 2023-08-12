@@ -1,5 +1,5 @@
-export interface Schedule {
+export interface Course {
     title: string;
-    start: string;
-    end: string;
+    start_time?: Date;
+    end_time?: Date;
 }
