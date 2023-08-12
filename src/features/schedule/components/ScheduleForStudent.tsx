@@ -35,6 +35,7 @@ function CustomToolbar(toolbar: ToolbarProps) {
 
 export const ScheduleForStudent = () => {
   const { events, loading } = useCalendarEvents();
+
   const [selectedEvent, setSelectedEvent] = useState<Schedule>();
   const [isAddEventModalOpen, setIsAddEventModalOpen] = useState(false);
   // TODO modalの実装
