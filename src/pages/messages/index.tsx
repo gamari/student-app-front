@@ -24,7 +24,11 @@ const Index = () => {
   return (
     <Layout>
       <Center className="h-screen">
-        <ChatRoom />
+        <ChatRoom
+          room={{
+            id: "1",
+          }}
+        />
       </Center>
     </Layout>
   );

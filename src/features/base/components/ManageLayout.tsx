@@ -11,6 +11,7 @@ import {
 import { SidebarTitle } from "./sidebar/SidebarTitle";
 import { SidebarLinks } from "./sidebar/SidebarLinks";
 import { useRouter } from "next/router";
+import { SidebarLink } from "./sidebar/SidebarLink";
 
 interface Props {
   children: React.ReactNode;
@@ -34,7 +35,33 @@ export const ManageLayout: FunctionComponent<Props> = ({
     <div className="flex flex-row">
       <div className="sticky top-0 h-screen w-[200px] bg-slate-700 text-white">
         <SidebarTitle className="px-4 py-4 border-b" />
-        <SidebarLinks className="px-2 mt-4" />
+        <div className={`flex flex-col`}>
+          <SidebarLink
+            Icon={HiChartPie}
+            label="ダッシュボード"
+            onClick={() => router.push("/manage/dashboard/")}
+          />
+
+          <div className="mt-4">
+            {session ? (
+              <SidebarLink
+                Icon={HiArrowSmLeft}
+                label="ログアウト"
+                onClick={() => {
+                  signOut();
+                }}
+              />
+            ) : (
+              <SidebarLink
+                Icon={HiArrowSmRight}
+                label="ログイン"
+                onClick={() => {
+                  router.push(`/manage/login`);
+                }}
+              />
+            )}
+          </div>
+        </div>
       </div>
 
       <main className={`flex-1 ${className}`}>{children}</main>

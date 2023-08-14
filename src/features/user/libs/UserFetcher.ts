@@ -3,6 +3,17 @@
 import axios from "axios";
 
 export class UserFetcher {
+    async getStudents(token: string) {
+        const { data } = await axios.get("http://localhost:8000/students/", {
+            headers: {
+                Authorization: `Bearer ${token}`,
+            },
+        });
+        console.log(data);
+
+        return data
+    }
+
     async fetchMe(access: string) {
         const { data } = await axios.get("http://localhost:8000/accounts/me/", {
             headers: {
