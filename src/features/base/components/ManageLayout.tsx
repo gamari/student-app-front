@@ -8,6 +8,9 @@ import {
   HiArrowSmLeft,
   HiArrowSmRight,
 } from "react-icons/hi";
+import { SidebarTitle } from "./sidebar/SidebarTitle";
+import { SidebarLinks } from "./sidebar/SidebarLinks";
+import { useRouter } from "next/router";
 
 interface Props {
   children: React.ReactNode;
@@ -18,63 +21,21 @@ export const ManageLayout: FunctionComponent<Props> = ({
   children,
   className = "",
 }) => {
-  const { data: session } = useSession();
+  const router = useRouter();
+  const { data: session, status } = useSession();
+  console.log(session);
+
+  if (status === "loading") return null;
+  if (status === "unauthenticated" || session?.user?.user_type != "teacher") {
+    router.push("/manage/login");
+  }
 
   return (
     <div className="flex flex-row">
-      <FlowbiteSidebar
-        aria-label="Default sidebar example "
-        className="sticky top-0 h-screen"
-      >
-        <FlowbiteSidebar.Logo
-          href="#"
-          img="/images/logo.png"
-          imgAlt="Flowbite logo"
-        >
-          <div>予約ページ</div>
-        </FlowbiteSidebar.Logo>
-
-        <FlowbiteSidebar.Items>
-          <FlowbiteSidebar.ItemGroup>
-            <FlowbiteSidebar.Item href="/dashboard" icon={HiChartPie}>
-              <p>ダッシュボード</p>
-            </FlowbiteSidebar.Item>
-            <FlowbiteSidebar.Item
-              icon={HiViewBoards}
-              onClick={() => {
-                // TODO
-              }}
-              label="Pro"
-              labelColor="dark"
-            >
-              <p>メッセージ</p>
-            </FlowbiteSidebar.Item>
-
-            <FlowbiteSidebar.Item href="/schedule" icon={HiInbox} label="3">
-              <p>予約</p>
-            </FlowbiteSidebar.Item>
-
-            {session ? (
-              <FlowbiteSidebar.Item
-                href="#"
-                icon={HiArrowSmLeft}
-                onClick={() => signOut()}
-                className="mt-10"
-              >
-                <p>ログアウト</p>
-              </FlowbiteSidebar.Item>
-            ) : (
-              <FlowbiteSidebar.Item
-                href="/"
-                icon={HiArrowSmRight}
-                className="mt-10"
-              >
-                <p>ログイン</p>
-              </FlowbiteSidebar.Item>
-            )}
-          </FlowbiteSidebar.ItemGroup>
-        </FlowbiteSidebar.Items>
-      </FlowbiteSidebar>
+      <div className="sticky top-0 h-screen w-[200px] bg-slate-700 text-white">
+        <SidebarTitle className="px-4 py-4 border-b" />
+        <SidebarLinks className="px-2 mt-4" />
+      </div>
 
       <main className={`flex-1 ${className}`}>{children}</main>
     </div>

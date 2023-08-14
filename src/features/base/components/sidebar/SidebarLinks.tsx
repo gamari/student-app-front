@@ -28,7 +28,7 @@ export const SidebarLinks: FunctionComponent<Props> = ({ className }) => {
   };
 
   return (
-    <div className={`flex flex-col space-y-2 ${className}`}>
+    <div className={`flex flex-col ${className}`}>
       <SidebarLink Icon={HiChartPie} label="ダッシュボード" />
       <SidebarLink
         Icon={HiInbox}
@@ -47,23 +47,25 @@ export const SidebarLinks: FunctionComponent<Props> = ({ className }) => {
         className="mb-4"
       />
 
-      {session ? (
-        <SidebarLink
-          Icon={HiArrowSmLeft}
-          label="ログアウト"
-          onClick={() => {
-            signOut();
-          }}
-        />
-      ) : (
-        <SidebarLink
-          Icon={HiArrowSmRight}
-          label="ログイン"
-          onClick={() => {
-            router.push(`/login`);
-          }}
-        />
-      )}
+      <div className="mt-4">
+        {session ? (
+          <SidebarLink
+            Icon={HiArrowSmLeft}
+            label="ログアウト"
+            onClick={() => {
+              signOut();
+            }}
+          />
+        ) : (
+          <SidebarLink
+            Icon={HiArrowSmRight}
+            label="ログイン"
+            onClick={() => {
+              router.push(`/login`);
+            }}
+          />
+        )}
+      </div>
     </div>
   );
 };

@@ -4,7 +4,7 @@ import axios from "axios";
 
 export class UserFetcher {
     async fetchMe(access: string) {
-        const { data } = await axios.get("http://localhost:8000/auth/users/me/", {
+        const { data } = await axios.get("http://localhost:8000/accounts/me/", {
             headers: {
                 Authorization: `Bearer ${access}`,
             },

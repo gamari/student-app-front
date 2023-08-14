@@ -1,9 +1,9 @@
 import { Label, TextInput, Button } from "flowbite-react";
-import React, { useState } from "react";
 import { signIn } from "next-auth/react";
 import { useRouter } from "next/router";
+import React, { useState } from "react";
 
-export const LoginForm = () => {
+export const ManageLoginForm = () => {
   const [error, setError] = useState<string | null>(null);
   const router = useRouter();
   const [email, setEmail] = useState("");
@@ -23,7 +23,7 @@ export const LoginForm = () => {
         "ログインに失敗しました。メールアドレスまたはパスワードが正しくありません。"
       );
     } else {
-      router.push("/dashboard");
+      router.push("/manage/dashboard");
     }
   };
 

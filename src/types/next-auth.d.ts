@@ -6,8 +6,8 @@ declare module "next-auth" {
             id?: string;
             access: string;
             refresh: string;
-            user: User
-        } & DefaultSession["user"];
+            user_type?: string
+        } & DefaultSession["user"]
         access: string;
         refresh: string;
     }
@@ -16,11 +16,13 @@ declare module "next-auth" {
         id?: string;
         access: string;
         refresh: string;
+        user_type?: string;
     }
 
     interface JWT {
         access: string;
         refresh: string;
+        user_type?: string;
     }
 }
 
@@ -30,5 +32,6 @@ declare module "next-auth/jwt" {
         refresh: string;
         exp: number;
         user: User
+        user_type?: string;
     }
 }

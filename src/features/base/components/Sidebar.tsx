@@ -4,6 +4,14 @@ import { ChatFetcher } from "@/features/chat/libs/external/ChatFetcher";
 import { useRouter } from "next/router";
 import { SidebarTitle } from "./sidebar/SidebarTitle";
 import { SidebarLinks } from "./sidebar/SidebarLinks";
+import { SidebarLink } from "./sidebar/SidebarLink";
+import {
+  HiChartPie,
+  HiInbox,
+  HiViewBoards,
+  HiArrowSmLeft,
+  HiArrowSmRight,
+} from "react-icons/hi";
 
 const theme = {
   color: {
@@ -13,11 +21,50 @@ const theme = {
 
 export const Sidebar = () => {
   const router = useRouter();
+  const { data: session } = useSession();
 
   return (
     <div className="sticky top-0 h-screen w-[200px] bg-slate-700 text-white">
       <SidebarTitle className="px-4 py-4 border-b" />
-      <SidebarLinks className="px-2 mt-4" />
+      <div className={`flex flex-col`}>
+        <SidebarLink Icon={HiChartPie} label="ダッシュボード" />
+        <SidebarLink
+          Icon={HiInbox}
+          label="メッセージ"
+          onClick={() => {
+            // handleEnter();
+          }}
+        />
+
+        <SidebarLink
+          Icon={HiViewBoards}
+          label="予約"
+          onClick={() => {
+            router.push(`/schedule`);
+          }}
+          className="mb-4"
+        />
+
+        <div className="mt-4">
+          {session ? (
+            <SidebarLink
+              Icon={HiArrowSmLeft}
+              label="ログアウト"
+              onClick={() => {
+                signOut();
+              }}
+            />
+          ) : (
+            <SidebarLink
+              Icon={HiArrowSmRight}
+              label="ログイン"
+              onClick={() => {
+                router.push(`/`);
+              }}
+            />
+          )}
+        </div>
+      </div>
     </div>
   );
 };
