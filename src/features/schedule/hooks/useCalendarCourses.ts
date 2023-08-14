@@ -13,30 +13,32 @@ const useCalendarEvents = () => {
 
     useEffect(() => {
         if (!session) return;
-        const fetchSchedules = async () => {
-            const response = await axios.get("http://localhost:8000/courses/?month=2023-08", {
-                headers: {
-                    Authorization: `Bearer ${session?.access}`,
-                },
-            });
-            const data: Event[] = [];
 
-            (response.data as Course[]).forEach(item => {
-                data.push({
-                    title: item.title,
-                    start: dayjs(item.start_time).toDate(),
-                    end: dayjs(item.start_time).toDate()
-                })
-            })
-            console.log(data);
-            setEvents(data);
-            setLoading(false);
-        };
 
         fetchSchedules();
     }, [session]);
 
-    return { events, loading };
+    const fetchSchedules = async () => {
+        const response = await axios.get("http://localhost:8000/courses/?month=2023-08", {
+            headers: {
+                Authorization: `Bearer ${session?.access}`,
+            },
+        });
+        const data: Event[] = [];
+
+        (response.data as Course[]).forEach(item => {
+            data.push({
+                title: item.title,
+                start: dayjs(item.start_time).toDate(),
+                end: dayjs(item.start_time).toDate()
+            })
+        })
+        console.log(data);
+        setEvents(data);
+        setLoading(false);
+    };
+
+    return { events, loading, fetchSchedules };
 };
 
 export default useCalendarEvents;

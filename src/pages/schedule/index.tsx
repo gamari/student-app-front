@@ -6,9 +6,6 @@ const Index = () => {
   return (
     <Layout className="px-6 py-4">
       <ScheduleForStudent />
-
-      <div>次の講座の予定</div>
-      <div>未定</div>
     </Layout>
   );
 };

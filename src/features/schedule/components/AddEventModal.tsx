@@ -5,9 +5,13 @@ import { EventDate } from "./event/EventDate";
 
 type AddEventModalProps = {
   onClose: () => void;
+  onComplete: () => void;
 };
 
-export const AddEventModal: React.FC<AddEventModalProps> = ({ onClose }) => {
+export const AddEventModal: React.FC<AddEventModalProps> = ({
+  onClose,
+  onComplete,
+}) => {
   const { course, saveCourse, setTitle, setStartTime } = useCourse();
 
   const handleSave = async () => {
@@ -15,6 +19,7 @@ export const AddEventModal: React.FC<AddEventModalProps> = ({ onClose }) => {
       await saveCourse();
       alert("予定が追加されました");
       onClose();
+      onComplete();
     } catch (error) {
       alert("エラーが発生しました");
       console.error("Error saving event:", error);

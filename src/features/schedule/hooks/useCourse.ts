@@ -2,14 +2,17 @@ import axios from "axios";
 import { useSession } from "next-auth/react";
 import { useState } from "react";
 import { Course } from "../types";
+import dayjs from "dayjs";
 
 export const useCourse = () => {
     const [course, setCourse] = useState<Course>({
-        title: ""
+        title: "",
+        start_time: dayjs().add(1, "day").toDate(),
     })
     const { data: session } = useSession();
 
     const saveCourse = async () => {
+        validation();
         return axios.post(
             "http://localhost:8000/courses/reserve/",
             {
@@ -24,6 +27,12 @@ export const useCourse = () => {
             }
         );
     };
+
+    const validation = () => {
+        // start_timeが今日以前の場合はエラー
+        if (dayjs(course.start_time).isBefore(dayjs(), "day")) throw new Error("開始日は翌日（青いパネルの次）以降にしてください。");
+    }
+
 
     const setTitle = (title: string) => {
         setCourse(prev => ({ ...prev, title }));

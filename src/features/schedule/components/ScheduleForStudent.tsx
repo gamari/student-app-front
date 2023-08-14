@@ -15,7 +15,7 @@ dayjs.locale("ja");
 const localizer = dayjsLocalizer(dayjs);
 
 export const ScheduleForStudent = () => {
-  const { events, loading } = useCalendarEvents();
+  const { events, loading, fetchSchedules } = useCalendarEvents();
 
   const [selectedCourse, setSelectedCourse] = useState<Course>();
   const [isAddEventModalOpen, setIsAddEventModalOpen] = useState(false);
@@ -75,9 +75,15 @@ export const ScheduleForStudent = () => {
         </button>
       </div>
 
+      <div>次の講座の予定</div>
+      <div>未定</div>
+
       {/* TODO 選択したイベントをモーダルで表示 */}
       {isAddEventModalOpen && (
-        <AddEventModal onClose={handleCloseAddEventModal} />
+        <AddEventModal
+          onClose={handleCloseAddEventModal}
+          onComplete={fetchSchedules}
+        />
       )}
     </div>
   );
