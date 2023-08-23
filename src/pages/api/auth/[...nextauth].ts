@@ -30,13 +30,9 @@ export default NextAuth({
             if (account && user) {
                 const userFethcer = new UserFetcher();
                 const me = await userFethcer.fetchMe(user?.access);
-                console.log(me)
-                console.log(user)
-                console.log(account);
                 return {
                     ...token,
                     user: me,
-                    test: "ab",
                     access: user?.access,
                     refresh: user?.refresh,
                     user_type: user?.user_type,

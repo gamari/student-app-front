@@ -11,7 +11,7 @@ export const Layout: FunctionComponent<Props> = ({
   className = "",
 }) => {
   return (
-    <div className="flex flex-row overflow-y-scroll">
+    <div className="flex flex-row ">
       <Sidebar />
 
       <main className={`flex-1 ${className}`}>{children}</main>

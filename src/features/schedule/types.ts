@@ -4,8 +4,10 @@ export interface Course {
     end_time?: Date;
 }
 
-export interface Event {
+export interface ProposeDate {
     title: string;
-    start: string;
-    end: string;
+    start_time: Date;
+    end_time: Date;
+    course_duration: number;
+    // student
 }

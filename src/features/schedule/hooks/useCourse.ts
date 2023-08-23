@@ -13,12 +13,12 @@ export const useCourse = () => {
 
     const saveCourse = async () => {
         validation();
+        // TODO propose-dateに変更
         return axios.post(
-            "http://localhost:8000/courses/reserve/",
+            "http://localhost:8000/propose-dates/",
             {
-                title: course.title,
                 start_time: course?.start_time?.toISOString(),
-                end_time: course?.end_time?.toISOString(),
+                course_duration: 60
             },
             {
                 headers: {

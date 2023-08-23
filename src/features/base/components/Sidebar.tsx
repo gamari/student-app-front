@@ -12,6 +12,7 @@ import {
   HiArrowSmLeft,
   HiArrowSmRight,
 } from "react-icons/hi";
+import { BiQuestionMark } from "react-icons/bi";
 
 const theme = {
   color: {
@@ -23,29 +24,21 @@ export const Sidebar = () => {
   const router = useRouter();
   const { data: session } = useSession();
 
-  const handleEnter = async () => {
-    console.log(session);
-    if (!session?.access) return;
-    const fetcher = new ChatFetcher(session?.access);
-    const room = await fetcher.fetchEnterRoom();
-    console.log(room);
-    router.push(`/rooms/${room.room_id}/`);
-  };
-
   return (
-    <div className="sticky top-0 h-screen w-[200px] bg-slate-700 text-white">
+    <div className="sticky top-0 h-screen w-[240px] bg-gray-700 text-white">
       <SidebarTitle className="px-4 py-4 border-b" />
-      <div className={`flex flex-col`}>
+      <div className={`flex flex-col gap-3 mt-5 px-2`}>
         <SidebarLink
           Icon={HiChartPie}
           label="ダッシュボード"
           onClick={() => router.push("/dashboard/")}
         />
+
         <SidebarLink
-          Icon={HiInbox}
-          label="メッセージ"
+          Icon={BiQuestionMark}
+          label="質問"
           onClick={() => {
-            handleEnter();
+            router.push(`/qa/`);
           }}
         />
 
