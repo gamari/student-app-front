@@ -1,5 +1,6 @@
 import { Event } from "react-big-calendar";
 import { ProposeDate } from "../types";
+import dayjs from "dayjs";
 
 export function proposeDateToEvent(proposeDate: ProposeDate): Event {
     const start = new Date(proposeDate.start_time);
@@ -8,11 +9,10 @@ export function proposeDateToEvent(proposeDate: ProposeDate): Event {
     );
 
     const event = {
-        title: `テスト`,
+        title: `${dayjs(proposeDate.start_time).format("hh:mm")} ${proposeDate.course_duration}分`,
         start: start,
         end: end,
     };
-    console.log(event);
 
     return event;
 }

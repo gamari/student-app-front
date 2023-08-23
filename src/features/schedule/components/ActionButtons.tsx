@@ -6,7 +6,7 @@ export const ActionButtons: React.FC<{
     <button onClick={onClose} className="p-2 bg-gray-200 rounded">
       キャンセル
     </button>
-    <button onClick={onSave} className="p-2 bg-blue-500 text-white rounded">
+    <button onClick={onSave} className="p-2 bg-blue-600 text-white rounded">
       保存
     </button>
   </div>

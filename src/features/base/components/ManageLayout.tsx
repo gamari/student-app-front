@@ -12,6 +12,7 @@ import { SidebarTitle } from "./sidebar/SidebarTitle";
 import { SidebarLinks } from "./sidebar/SidebarLinks";
 import { useRouter } from "next/router";
 import { SidebarLink } from "./sidebar/SidebarLink";
+import { BiCalendar } from "react-icons/bi";
 
 interface Props {
   children: React.ReactNode;
@@ -33,13 +34,19 @@ export const ManageLayout: FunctionComponent<Props> = ({
 
   return (
     <div className="flex flex-row">
-      <div className="sticky top-0 h-screen w-[200px] bg-slate-700 text-white">
-        <SidebarTitle className="px-4 py-4 border-b" />
-        <div className={`flex flex-col`}>
+      <div className="sticky top-0 h-screen w-[240px] bg-green-800 text-white">
+        <SidebarTitle className="px-4 py-4 border-b" title="管理者ページ" />
+        <div className={`flex flex-col gap-3 mt-5 px-2`}>
           <SidebarLink
             Icon={HiChartPie}
             label="ダッシュボード"
             onClick={() => router.push("/manage/dashboard/")}
+          />
+
+          <SidebarLink
+            Icon={BiCalendar}
+            label="予定表"
+            onClick={() => router.push("/manage/schedules/")}
           />
 
           <div className="mt-4">

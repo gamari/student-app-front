@@ -9,7 +9,8 @@ export function CustomToolbar(toolbar: ToolbarProps) {
   };
 
   return (
-    <div className="flex flex-row space-x-2 mb-3 items-center">
+    <div className="flex flex-row justify-between mb-3 items-center">
+      <div className="text-xl text-gray-600">{toolbar.label}</div>
       <div className="flex flex-row space-x-3">
         <button
           onClick={prev}
@@ -24,8 +25,6 @@ export function CustomToolbar(toolbar: ToolbarProps) {
           次へ
         </button>
       </div>
-
-      <div className="text-xl text-gray-600">{toolbar.label}</div>
     </div>
   );
 }

@@ -12,7 +12,7 @@ import {
   HiArrowSmLeft,
   HiArrowSmRight,
 } from "react-icons/hi";
-import { BiQuestionMark } from "react-icons/bi";
+import { BiCalendar, BiQuestionMark } from "react-icons/bi";
 
 const theme = {
   color: {
@@ -43,7 +43,7 @@ export const Sidebar = () => {
         />
 
         <SidebarLink
-          Icon={HiViewBoards}
+          Icon={BiCalendar}
           label="予約"
           onClick={() => {
             router.push(`/schedule`);

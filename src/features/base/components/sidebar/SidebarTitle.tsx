@@ -2,13 +2,16 @@ import React, { FunctionComponent } from "react";
 
 interface Props {
   className?: string;
+  title?: string;
 }
 
-export const SidebarTitle: FunctionComponent<Props> = ({ className }) => {
+export const SidebarTitle: FunctionComponent<Props> = ({
+  className,
+  title = "予約ページ",
+}) => {
   return (
     <div className={`text-lg ${className}`}>
-      {/* TODO logo */}
-      <div>予約ページ</div>
+      <div>{title}</div>
     </div>
   );
 };
